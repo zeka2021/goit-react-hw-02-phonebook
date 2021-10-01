@@ -1,54 +1,76 @@
 import React, { Component } from 'react';
+import ContactForm from './ContactForm';
+import ContactList from './ContactList';
+import Contact from './ContactList/Contact';
+import Filter from './Filter';
 
-// import { v4 as uuidv4 } from "uuid";
+import { v4 as uuidv4 } from 'uuid';
 
 class App extends Component {
   state = {
     contacts: [],
     filter: '',
-    name: '',
-    number: '',
   };
+
+  formSubmitHandler = data => {
+    const { contacts } = this.state;
+    const { name } = data;
+    const contactId = uuidv4();
+    const newContact = { ...data, id: contactId };
+  };
+
+  deleteContact = id => {
+    this.setState(({ contacts }) => ({
+      contacts: contacts.filter(contact => contact.id !== id),
+    }));
+  };
+  changeFilter = e => {
+    this.setState({ filter: e.currentTarget.value });
+  };
+
+  filterContacts = () => {
+    const { contacts, filter } = this.state;
+
+    return [...contacts].filter(({ name }) =>
+      name.toLowerCase().includes(filter),
+    );
+  };
+
   render() {
+    const {
+      filterContacts,
+      formSubmitHandler,
+      changeFilter,
+      deleteContact,
+      state: { filter },
+    } = this;
+    const filteredContacts = filterContacts();
+
     return (
       <div>
         <h1>Phonebook</h1>
-        <form>
-          <label>
-            Name
-            <input
-              type="text"
-              name="name"
-              pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-              title="Имя может состоять только из букв, апострофа, тире и пробелов. Например Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan и т. п."
-              required
-            />
-          </label>
-          <label>
-            number
-            <input
-              type="tel"
-              name="number"
-              pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-              title="Номер телефона должен состоять цифр и может содержать пробелы, тире, круглые скобки и может начинаться с +"
-              required
-            />
-          </label>
-          <button type="submit">Add contact</button>
-        </form>
+        <ContactForm onSubmit={formSubmitHandler} />
         <h2>Contacts</h2>
+        <Filter onChange={changeFilter} filter={filter} />
         <div>
           <label>
             Find contact by name
             <input type="text" name="filter" />
           </label>
         </div>
-        <ul>
-          <li>
-            <span>Name:</span>
-            <span>Number</span>
-          </li>
-        </ul>
+        <ContactList deleteContact={deleteContact}>
+          {filteredContacts.map(contact => {
+            const contactId = uuidv4();
+
+            return (
+              <Contact
+                key={contactId}
+                contact={contact}
+                deleteContact={deleteContact}
+              />
+            );
+          })}
+        </ContactList>
       </div>
     );
   }
