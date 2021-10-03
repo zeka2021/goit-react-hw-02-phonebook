@@ -1,0 +1,5 @@
+.bodyForm {
+  display: flex;
+  flex-direction: column;
+  border-radius: 1px;
+}

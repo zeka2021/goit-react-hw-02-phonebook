@@ -12,18 +12,31 @@ class App extends Component {
     filter: '',
   };
 
-  formSubmitHandler = data => {
-    const { contacts } = this.state;
-    const { name } = data;
-    const contactId = uuidv4();
-    const newContact = { ...data, id: contactId };
-  };
-
   deleteContact = id => {
     this.setState(({ contacts }) => ({
       contacts: contacts.filter(contact => contact.id !== id),
     }));
   };
+
+  formSubmitHandler = data => {
+    const { contacts } = this.state;
+    const { name } = data;
+    const contactId = uuidv4();
+    const newContact = { ...data, id: contactId };
+    const isNotUniqueContact = contacts.some(contact =>
+      contact.name.includes(name),
+    );
+
+    if (isNotUniqueContact) {
+      window.alert(`${name} is already in contacts`);
+      return;
+    }
+
+    this.setState(({ contacts }) => ({
+      contacts: [...contacts, newContact],
+    }));
+  };
+
   changeFilter = e => {
     this.setState({ filter: e.currentTarget.value });
   };
@@ -52,12 +65,7 @@ class App extends Component {
         <ContactForm onSubmit={formSubmitHandler} />
         <h2>Contacts</h2>
         <Filter onChange={changeFilter} filter={filter} />
-        <div>
-          <label>
-            Find contact by name
-            <input type="text" name="filter" />
-          </label>
-        </div>
+
         <ContactList deleteContact={deleteContact}>
           {filteredContacts.map(contact => {
             const contactId = uuidv4();
