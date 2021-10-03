@@ -1,16 +1,25 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import s from './Filter.module.css';
 
 class Filter extends Component {
   render() {
     const { filter, onChange } = this.props;
 
     return (
-      <div>
-        <label>
-          Find contacts by name
-          <input type="text" name="filter" value={filter} onChange={onChange} />
-        </label>
+      <div className={s.filterForm}>
+        <div className={s.filterGrup}>
+          <label className={s.filterGrupLabel}>
+            Find contacts by name
+            <input
+              className={s.filterGrupInput}
+              type="text"
+              name="filter"
+              value={filter}
+              onChange={onChange}
+            />
+          </label>
+        </div>
       </div>
     );
   }

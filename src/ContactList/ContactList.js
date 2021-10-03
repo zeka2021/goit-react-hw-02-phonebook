@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import s from './ContactList.module.css';
 
 class ContactList extends Component {
   render() {
     return (
-      <div>
-        <ul>{this.props.children}</ul>
+      <div className={s.container}>
+        <ul className={s.listContainer}>{this.props.children}</ul>
       </div>
     );
   }

@@ -60,10 +60,10 @@ class App extends Component {
     const filteredContacts = filterContacts();
 
     return (
-      <div>
-        <h1>Phonebook</h1>
+      <div className="container">
+        <h1 className="title">Phonebook</h1>
         <ContactForm onSubmit={formSubmitHandler} />
-        <h2>Contacts</h2>
+        <h2 className="title">Contacts</h2>
         <Filter onChange={changeFilter} filter={filter} />
 
         <ContactList deleteContact={deleteContact}>

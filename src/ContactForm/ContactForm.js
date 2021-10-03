@@ -30,33 +30,41 @@ class ContactForm extends Component {
   };
   render() {
     return (
-      <div className={s.bodyForm}>
-        <form onSubmit={this.handleSubmit}>
-          <label>
-            Name
-            <input
-              type="text"
-              value={this.state.name}
-              onChange={this.handleChange}
-              name="name"
-              pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-              title="Имя может состоять только из букв, апострофа, тире и пробелов. Например Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan и т. п."
-              required
-            />
-          </label>
-          <label>
-            number
-            <input
-              type="tel"
-              value={this.state.number}
-              onChange={this.handleChange}
-              name="number"
-              pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-              title="Номер телефона должен состоять цифр и может содержать пробелы, тире, круглые скобки и может начинаться с +"
-              required
-            />
-          </label>
-          <button type="submit">Add contact</button>
+      <div className={s.wrapperForm}>
+        <form className={s.bodyForm} onSubmit={this.handleSubmit}>
+          <div className={s.formGrup}>
+            <label className={s.formGgroupLabel}>
+              Name
+              <input
+                type="text"
+                value={this.state.name}
+                onChange={this.handleChange}
+                name="name"
+                pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+                title="Имя может состоять только из букв, апострофа, тире и пробелов. Например Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan и т. п."
+                required
+                className={s.formGroupInput}
+              />
+            </label>
+            <label className={s.formGgroupLabel}>
+              number
+              <input
+                type="tel"
+                value={this.state.number}
+                onChange={this.handleChange}
+                name="number"
+                pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+                title="Номер телефона должен состоять цифр и может содержать пробелы, тире, круглые скобки и может начинаться с +"
+                required
+                className={s.formGroupInput}
+              />
+            </label>
+          </div>
+          <div className={s.submitButton}>
+            <button className={s.button} type="submit">
+              Add contact
+            </button>
+          </div>
         </form>
       </div>
     );

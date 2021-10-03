@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import s from './Contact.module.css';
 
 class Contact extends Component {
   render() {
@@ -9,10 +10,12 @@ class Contact extends Component {
     } = this.props;
 
     return (
-      <li>
-        <span>{name}</span>
-        <span>{number}</span>
-        <button onClick={() => deleteContact(id)}>Delet contact</button>
+      <li className={s.itemContact}>
+        <span className={s.itemSpanContent}>{name}</span>
+        <span className={s.itemSpanContent}>{number}</span>
+        <button className={s.button} onClick={() => deleteContact(id)}>
+          Delet contact
+        </button>
       </li>
     );
   }
